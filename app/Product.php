@@ -8,7 +8,7 @@ use App\Category;
 class Product extends Model
 {
     protected $fillable = [
-        'name', 'categories_id', 'description', 'price',
+        'name', 'category_id', 'full_details', 'description', 'price', ''
     ];
 
     public function format()

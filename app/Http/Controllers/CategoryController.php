@@ -22,7 +22,7 @@ class CategoryController extends Controller
     public function index()
     {
         $category = $this->categoryRepository->all();
-        return $this->sendResponse($category, "category displayed", 200);
+        return $category;
     }
 
     /**
@@ -43,7 +43,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $category = $this->categoryRepository->create($request);
+        return  $category;
     }
 
     /**
@@ -54,8 +56,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $categoryRepository = $this->categoryRepository->findById($category->id);
-        return $this->sendResponse($category, "category showed successfully", 200);
+        $category = $this->categoryRepository->findById($category->id);
+        return $category;
     }
 
     /**
@@ -78,8 +80,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $category = $this->categoryRepository->update($category->id);
-        return $this->sendResponse($category, "category updated successfully", 204);
+        $category = $this->categoryRepository->update($request, $category->id);
+        return $category;
     }
 
     /**
@@ -91,31 +93,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category = $this->categoryRepository->delete($category->id);
-    }
-
-    public function sendResponse($result, $message, $code = 200)
-    {
-        $response = [
-            'success' => true,
-            'data' => $result,
-            'message' => $message,
-        ];
-
-        return response()->json($response, $code);
-    }
-
-    public function sendError($error, $errorMessage = [], $code = 404)
-    {
-
-        $response = [
-            'success' => false,
-            'message' => $error,
-        ];
-
-        if (!empty($errorMessage)) {
-            $response['data'] = $errorMessage;
-        }
-
-        return response()->json($response, $code);
+        return $category;
     }
 }

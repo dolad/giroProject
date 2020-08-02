@@ -9,7 +9,8 @@ interface CategoryRepositoryInterface
 
     public function findById($productId);
 
-    public function update($productId);
+    public function update($productId, $request);
 
     public function delete($productId);
+    public function create($request);
 }

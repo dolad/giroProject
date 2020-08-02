@@ -22,9 +22,7 @@ class ProductController extends Controller
     public function index()
     {
         $product = $this->productRepository->all();
-
-
-        return $this->sendResponse($product, "product listed", 200);
+        return $product;
     }
 
     /**
@@ -45,6 +43,8 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $product = $this->productRepository->create($request);
+        return  $product;
     }
 
     /**
@@ -56,7 +56,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product = $this->productRepository->findById($product->id);
-        return $this->sendResponse($product, "product showed successfully", 200);
+        return $product;
     }
 
     /**
@@ -79,8 +79,8 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $product = $this->productRepository->update($product->id);
-        return $this->sendResponse($product, "product updated successfully", 204);
+        $product = $this->productRepository->update($request, $product->id);
+        return $product;
     }
 
     /**
@@ -92,31 +92,5 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product = $this->productRepository->delete($product->id);
-    }
-
-    public function sendResponse($result, $message, $code = 200)
-    {
-        $response = [
-            'success' => true,
-            'data' => $result,
-            'message' => $message,
-        ];
-
-        return response()->json($response, $code);
-    }
-
-    public function sendError($error, $errorMessage = [], $code = 404)
-    {
-
-        $response = [
-            'success' => false,
-            'message' => $error,
-        ];
-
-        if (!empty($errorMessage)) {
-            $response['data'] = $errorMessage;
-        }
-
-        return response()->json($response, $code);
     }
 }
