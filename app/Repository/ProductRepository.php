@@ -50,6 +50,7 @@ class ProductRepository implements ProductRepositoryInterface
 
     public function validate($request)
     {
+
         $input = $request->all();
         $validator = Validator::make($input, [
             'name' => 'required',
@@ -57,17 +58,17 @@ class ProductRepository implements ProductRepositoryInterface
             'category_id' => "required || integer",
             'full_details' => 'required',
             'price' => 'required || integer',
-            'photos' =>  'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'photo' =>  'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $input->photos = Image::make($image)->resize(300, 300)->save(storage_path('/uploads/' . $filename));
-        }
+        // if ($request->get('file')) {
+        //     $image = $request->get('file');
+        //     $name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+        //     Image::make(file_get_contents($image->base64_image))->save(public_path('images/') . $name);
+        //     $input['photos'] = $name;
+        // }
         if ($validator->fails()) {
             return $this->sendError('Validation Error', $validator->errors());
         }
-
         return $input;
     }
 
