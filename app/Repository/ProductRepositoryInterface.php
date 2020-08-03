@@ -9,7 +9,7 @@ interface ProductRepositoryInterface
 
     public function findById($productId);
 
-    public function update($productId, $request);
+    public function update($request, $productId);
 
     public function delete($productId);
 

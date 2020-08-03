@@ -9,10 +9,14 @@
     <title>Tasksman</title>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+
+
 </head>
 <body>
     <div id="app"></div>
 
     <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 </html>

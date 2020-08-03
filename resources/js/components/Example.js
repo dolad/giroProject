@@ -1,22 +1,33 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Header from "./Header";
+import ProductDetail from "./ProductDetail";
+import "./Staging.scss";
+import Edit from "./Edit";
+import Staging from "./Staging";
+import AddProduct from "./AddProduct";
+import Preview from "./Preview";
 
 export default class Example extends Component {
     render() {
         return (
-            <div className="container">
-                <div className="row justify-content-center">
-                    <div className="col-md-8">
-                        <div className="card">
-                            <div className="card-header">Example Component</div>
-
-                            <div className="card-body">
-                                I'm an example component!
-                            </div>
-                        </div>
-                    </div>
+            <BrowserRouter>
+                <div>
+                    <Header />
+                    <Switch>
+                        <Route exact path="/" component={Staging} />
+                        <Route path="/product" component={ProductDetail} />
+                        <Route path="/add-product" component={AddProduct} />
+                        <Route
+                            exact
+                            path="/preview-product"
+                            component={Preview}
+                        />
+                        <Route exact path="/preview-product" component={Edit} />
+                    </Switch>
                 </div>
-            </div>
+            </BrowserRouter>
         );
     }
 }
